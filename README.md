@@ -2,6 +2,10 @@
 
 The plugin allows you to integrate **fzf** to select and search for your project files.
 
+![recording-2021-11-04-231418.gif](Design/recording-2021-11-04-231418.gif)
+
+## Information
+
 Tested version: Micro 2.0.10; fzf 0.27.2
 
 The advantages of my implementation:
