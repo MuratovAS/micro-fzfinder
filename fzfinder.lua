@@ -5,14 +5,18 @@ local config = import("micro/config")
 local buffer = import("micro/buffer")
 local shell = import("micro/shell")
 
-local fzfarg =  config.GetGlobalOption("fzfarg")
+local fzfArg =  config.GetGlobalOption("fzfarg")
+local fzfCmd =  config.GetGlobalOption("fzfcmd")
 
 function fzfinder(bp)
-  if fzfarg == nil then
-    fzfarg = "";
+  if fzfArg == nil then
+    fzfArg = "";
   end
-
-  local output, err = shell.RunInteractiveShell("fzf "..fzfarg, false, true)
+  if fzfCmd == nil then
+     fzfCmd = "fzf";
+  end
+  
+  local output, err = shell.RunInteractiveShell(fzfCmd.." "..fzfArg, false, true)
   if err == nil then
     fzfOutput(output, {bp})
   end
