@@ -13,9 +13,7 @@ function fzfinder(bp)
   end
 
   local output, err = shell.RunInteractiveShell("fzf "..fzfarg, false, true)
-  if err ~= nil then
-    micro.InfoBar():Error(err)
-  else
+  if err == nil then
     fzfOutput(output, {bp})
   end
 
