@@ -5,27 +5,29 @@ local config = import("micro/config")
 local buffer = import("micro/buffer")
 local shell = import("micro/shell")
 
-local  fzfarg = config.GetGlobalOption("fzfarg")
-local fzfopen = config.GetGlobalOption("fzfopen")
+local fzfArg =  config.GetGlobalOption("fzfarg")
+local fzfCmd =  config.GetGlobalOption("fzfcmd")
+local fzfOpen = config.GetGlobalOption("fzfopen")
 
 function fzfinder(bp)
-  if fzfarg == nil then
-    fzfarg = ""
+  if fzfArg == nil then
+    fzfArg = "";
   end
 
-  if fzfopen == nil then
-    fzfopen = "thispane"
-  elseif fzfopen == "hsplit" or fzfopen == "vsplit" or fzfopen == "newtab" then
-    fzfarg = "-m "..fzfarg
+  if fzfCmd == nil then
+     fzfCmd = "fzf";
   end
 
-  local output, err = shell.RunInteractiveShell("fzf "..fzfarg, false, true)
-  if err ~= nil then
-    micro.InfoBar():Error(err)
-  else
+  if fzfOpen == nil then
+    fzfOpen = "thispane"
+  elseif fzfOpen == "hsplit" or fzfOpen == "vsplit" or fzfOpen == "newtab" then
+    fzfArg = "-m "..fzfArg
+  end
+  
+  local output, err = shell.RunInteractiveShell(fzfCmd.." "..fzfArg, false, true)
+  if err == nil then
     fzfOutput(output, {bp})
   end
-
 end
 
 function fzfOutput(output, args)
@@ -33,13 +35,13 @@ function fzfOutput(output, args)
 
    if output ~= "" then
       for file in output:gmatch("[^\r\n]+") do
-         if fzfopen == "newtab" then
+         if fzfOpen == "newtab" then
             bp:NewTabCmd({file})
          else
             local buf, err = buffer.NewBufferFromFile(file)
-            if fzfopen == "vsplit" then
+            if fzfOpen == "vsplit" then
                bp:VSplitIndex(buf, true)
-            elseif fzfopen == "hsplit" then
+            elseif fzfOpen == "hsplit" then
                bp:HSplitIndex(buf, true)
             else
                bp:OpenBuffer(buf)
