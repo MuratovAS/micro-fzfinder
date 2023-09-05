@@ -14,6 +14,8 @@ function fzfinder(bp)
   end
   if fzfcmd == nil then
      fzfcmd = "fzf";
+  else
+     fzfcmd = fzfcmd.." | fzf";
   end
 
   local output, err = shell.RunInteractiveShell("sh -c '"..fzfcmd.." "..fzfarg.."'", false, true)
