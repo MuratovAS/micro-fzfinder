@@ -9,6 +9,7 @@ local filepath = import("path/filepath")
 local fzfArg =  config.GetGlobalOption("fzfarg")
 local fzfCmd =  config.GetGlobalOption("fzfcmd")
 local fzfOpen = config.GetGlobalOption("fzfopen")
+local fzfPath = config.GetGlobalOption("fzfpath")
 
 function fzfinder(bp)
   if fzfArg == nil then
@@ -18,17 +19,11 @@ function fzfinder(bp)
   if fzfCmd == nil then
      fzfCmd = "fzf";
   end
-  rootdir = string.gsub(bp.buf.AbsPath, bp.buf.Path, "")
-  relative = filepath.Dir(bp.buf.Path)
-  toto = rootdir.." | "..relative
 
-  -- os.Chdir(relative)
-  -- if string.find(abspath, "usr") then
-      -- toto = "/tmp"
-   -- else
-      -- toto =  "/usr/local/bin"
-   -- end
-  bp:CdCmd({relative})
+  if fzfPath == "relative" then
+    currentdir = filepath.Dir(bp.buf.Path)
+    bp:CdCmd({currentdir})
+  end
 
   if fzfOpen == nil then
     fzfOpen = "thispane"
@@ -38,13 +33,9 @@ function fzfinder(bp)
 
   local output, err = shell.RunInteractiveShell(fzfCmd.." "..fzfArg, false, true)
 
-  -- os.Chdir(abspath)
-
   if err == nil then
     fzfOutput(output, {bp})
   end
-
-  micro.InfoBar():Error(toto)
 end
 
 function fzfOutput(output, args)
