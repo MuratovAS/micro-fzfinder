@@ -5,8 +5,8 @@
   "Website": "https://github.com/muratovas/micro-fzfinder",
   "Versions": [
     {
-      "Version": "0.1.0",
-      "Url": "https://github.com/muratovas/micro-fzfinder/archive/v0.1.0.zip",
+      "Version": "0.2.0",
+      "Url": "https://github.com/muratovas/micro-fzfinder/archive/v0.2.0.zip",
       "Require": {
         "micro": ">=2.0.0"
       }
