@@ -37,6 +37,8 @@ micro -plugin install fzfinder
 
 Fzf parameters can be set by means of `options` in the file `settings.json`:
 
+NOTE: `bat` can be replaced with `cat`.
+
 ~~~json
 "fzfcmd": "/usr/bin/fzf",
 "fzfopen": "newtab",
