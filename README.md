@@ -37,8 +37,12 @@ micro -plugin install fzfinder
 
 Fzf parameters can be set by means of `options` in the file `settings.json`:
 
+NOTE: `bat` can be replaced with `cat`.
+
 ~~~json
-"fzfarg": "--layout=reverse  --preview 'cat {}' --color=bw",
+"fzfarg": "--preview 'bat -f -p {}'",
+"fzfcmd": "/usr/bin/fzf",
+"fzfopen": "newtab",
 ~~~
 
 We can also configure launch through `hot keys` in the file  `bindings.json`:
