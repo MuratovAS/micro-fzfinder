@@ -6,7 +6,7 @@ The plugin allows you to integrate **fzf** to select and search for your project
 
 ## Information
 
-Tested version: Micro 2.0.10; fzf 0.27.2
+Tested version: Micro 2.0.11; fzf 0.42.0
 
 The advantages of my implementation:
 - Ability to set the `fzf` parameters through the settings file
@@ -38,7 +38,10 @@ micro -plugin install fzfinder
 Fzf parameters can be set by means of `options` in the file `settings.json`:
 
 ~~~json
-"fzfarg": "--layout=reverse  --preview 'cat {}' --color=bw",
+"fzfcmd": "/usr/bin/fzf",
+"fzfopen": "newtab",
+"fzfpath": "relative",
+"fzfarg": "--preview 'bat -f -p {}'",
 ~~~
 
 We can also configure launch through `hot keys` in the file  `bindings.json`:
