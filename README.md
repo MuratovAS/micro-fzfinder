@@ -11,7 +11,7 @@ Tested version: Micro 2.0.11; fzf 0.42.0
 The advantages of my implementation:
 - Ability to set the `fzf` parameters through the settings file
 - Solved problem with a critical error when selecting a file
-- I plan to support plugin 
+- I plan to support plugin
 
 ## Installation
 
@@ -33,7 +33,7 @@ Installing the plugin in micro editor
 micro -plugin install fzfinder
 ~~~
 
-## Settings 
+## Settings
 
 Fzf parameters can be set by means of `options` in the file `settings.json`:
 
@@ -52,9 +52,13 @@ We can also configure launch through `hot keys` in the file  `bindings.json`:
 "Alt-Tab": "command:fzfinder",
 ~~~
 
+### Tips: get a colored output
+
+The `fzfcmd` cannot be a chain of commands, like a command you pipe into fzf, but you can create a script doing that internally and set it as the command to run. To get for example a colored output, use [fd](https://github.com/sharkdp/fd): wrote a bash script for example /usr/local/bin/fzfcolored containing `fd . -t f -c always | fzf --ansi "$@"` and set `"fzfcmd": "fzfcolored"` in `settings.json`. The script receive its options from `fzfargs` ; some preview commands could bug, in this case, just set the fzf options directly in the script and disable `fzfargs`.
+
 ## Credits
 
-A good example of the development of plugins: [micro-editor/updated-plugins](https://github.com/micro-editor/updated-plugins  )  
+A good example of the development of plugins: [micro-editor/updated-plugins](https://github.com/micro-editor/updated-plugins  )
 
-The idea is inherited from the already unsupported expansion: [samdmarshall/micro-fzf-plugin](https://github.com/samdmarshall/micro-fzf-plugin ) 
+The idea is inherited from the already unsupported expansion: [samdmarshall/micro-fzf-plugin](https://github.com/samdmarshall/micro-fzf-plugin )
 
