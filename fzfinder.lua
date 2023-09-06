@@ -18,9 +18,17 @@ function fzfinder(bp)
   if fzfCmd == nil then
      fzfCmd = "fzf";
   end
+  rootdir = string.gsub(bp.buf.AbsPath, bp.buf.Path, "")
+  relative = filepath.Dir(bp.buf.Path)
+  toto = rootdir.." | "..relative
 
-  abspath = filepath.Dir(bp.buf.AbsPath)
-  bp:CdCmd({"/tmp"})
+  -- os.Chdir(relative)
+  -- if string.find(abspath, "usr") then
+      -- toto = "/tmp"
+   -- else
+      -- toto =  "/usr/local/bin"
+   -- end
+  bp:CdCmd({relative})
 
   if fzfOpen == nil then
     fzfOpen = "thispane"
@@ -30,11 +38,13 @@ function fzfinder(bp)
 
   local output, err = shell.RunInteractiveShell(fzfCmd.." "..fzfArg, false, true)
 
-  bp:CdCmd({abspath})
+  -- os.Chdir(abspath)
 
   if err == nil then
     fzfOutput(output, {bp})
   end
+
+  micro.InfoBar():Error(toto)
 end
 
 function fzfOutput(output, args)
