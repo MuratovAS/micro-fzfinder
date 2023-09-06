@@ -14,17 +14,20 @@ function fzfinder(bp)
     fzfArg = "";
   end
 
-  if fzfCmd == nil then
-     fzfCmd = "fzf";
-  end
-
   if fzfOpen == nil then
     fzfOpen = "thispane"
   elseif fzfOpen == "hsplit" or fzfOpen == "vsplit" or fzfOpen == "newtab" then
     fzfArg = "-m "..fzfArg
   end
-  
-  local output, err = shell.RunInteractiveShell(fzfCmd.." "..fzfArg, false, true)
+
+  local output, err
+
+  if fzfCmd == nil then
+     output, err = shell.RunInteractiveShell("fzf".." "..fzfArg, false, true)
+  else
+     output, err = shell.RunInteractiveShell("sh -c '"..fzfCmd.." ".."| fzf".." "..fzfArg.."'", false, true)
+  end
+
   if err == nil then
     fzfOutput(output, {bp})
   end
