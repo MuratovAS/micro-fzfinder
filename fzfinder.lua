@@ -4,6 +4,7 @@ local micro = import("micro")
 local config = import("micro/config")
 local buffer = import("micro/buffer")
 local shell = import("micro/shell")
+local filepath = import("path/filepath")
 
 local fzfArg =  config.GetGlobalOption("fzfarg")
 local fzfCmd =  config.GetGlobalOption("fzfcmd")
@@ -18,13 +19,19 @@ function fzfinder(bp)
      fzfCmd = "fzf";
   end
 
+  abspath = filepath.Dir(bp.buf.AbsPath)
+  bp:CdCmd({"/tmp"})
+
   if fzfOpen == nil then
     fzfOpen = "thispane"
   elseif fzfOpen == "hsplit" or fzfOpen == "vsplit" or fzfOpen == "newtab" then
     fzfArg = "-m "..fzfArg
   end
-  
+
   local output, err = shell.RunInteractiveShell(fzfCmd.." "..fzfArg, false, true)
+
+  bp:CdCmd({abspath})
+
   if err == nil then
     fzfOutput(output, {bp})
   end
